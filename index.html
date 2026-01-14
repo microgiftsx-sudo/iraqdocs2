@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Google Docs Color Palette */
+            --md-sys-color-primary: #1967d2;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #d3e3fd;
+            --md-sys-color-on-primary-container: #001c38;
+            --md-sys-color-secondary: #535f70;
+            --md-sys-color-surface: #ffffff;
+            --md-sys-color-surface-variant: #e1e2ec;
+            --md-sys-color-on-surface: #1a1c1e;
+            --md-sys-color-on-surface-variant: #43474e;
+            --md-sys-color-outline: #74777f;
+            --md-sys-color-outline-variant: #c4c6cf;
+            --md-sys-color-error: #ba1a1a;
+            --md-sys-color-on-error: #ffffff;
+
+            /* Derived colors */
+            --primary-color: #1967d2;
+            --primary-hover: #1557b0;
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-primary: #1a1c1e;
+            --text-secondary: #5f6368;
+            --text-muted: #80868b;
+            --border-color: #dadce0;
+            --hover-bg: #f1f3f4;
+            --shadow-sm: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+            --shadow-md: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+            --shadow-lg: 0 2px 6px 2px rgba(60, 64, 67, 0.15), 0 8px 24px 4px rgba(60, 64, 67, 0.15);
+        }
+
+        body {
+            font-family: 'Cairo', 'Google Sans', sans-serif;
+            background: var(--bg-color);
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 100%;
+            margin: 0;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        /* Custom Scrollbar for Main Container - Google Docs Style */
+        .container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: rgba(95, 99, 104, 0.4);
+            border-radius: 4px;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background: rgba(95, 99, 104, 0.6);
+        }
+
+        /* Material Design Card - Google Docs Style */
+        .glass-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Header - Google Docs Style */
+        .header {
+            text-align: center;
+            background: var(--primary-color);
+            color: var(--md-sys-color-on-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-icon {
+            font-size: 32px;
+            opacity: 0.9;
+        }
+
+        .header h1 {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .header-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.9;
+        }
+
+        /* Material Design Input Fields - Google Docs Style */
+        .input-group {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 13px;
+            background: var(--surface-color);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-primary);
+        }
+
+        .input-field:hover {
+            border-color: var(--md-sys-color-outline);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            border-width: 2px;
+            padding: 9px 11px;
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .floating-label {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 13px;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            padding: 0 3px;
+        }
+
+        .input-field:focus~.floating-label,
+        .input-field:not(:placeholder-shown)~.floating-label {
+            top: 0;
+            transform: translateY(-50%) scale(0.75);
+            background: var(--surface-color);
+            color: var(--primary-color);
+        }
+
+        textarea.input-field {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* Material Design Checkbox - Google Docs Style */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 6px 8px;
+            background: transparent;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .checkbox-wrapper:hover {
+            background: var(--hover-bg);
+        }
+
+        .custom-checkbox {
+            position: relative;
+            width: 18px;
+            height: 18px;
+            margin-left: 10px;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: var(--surface-color);
+            border: 2px solid var(--md-sys-color-outline);
+            border-radius: 2px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .checkbox-wrapper:hover .checkmark {
+            border-color: var(--text-secondary);
+        }
+
+        .custom-checkbox input:checked~.checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .custom-checkbox input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .custom-checkbox .checkmark:after {
+            right: 5px;
+            top: 1px;
+            width: 4px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            flex: 1;
+        }
+
+        /* Material Design Button - Google Docs Style */
+        .btn {
+            position: relative;
+            width: 100%;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--md-sys-color-on-primary);
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3);
+        }
+
+        .btn-primary:active {
+            background: var(--primary-hover);
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--surface-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: var(--hover-bg);
+            box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--hover-bg);
+            color: var(--text-muted);
+        }
+
+        /* Loading Animation - Material Design */
+        .loading-container {
+            display: none;
+            text-align: center;
+            padding: 16px;
+        }
+
+        .loading-spinner {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 12px;
+            position: relative;
+        }
+
+        .loading-spinner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        /* Error Message - Material Design */
+        .error-message {
+            display: none;
+            background: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error);
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 12px;
+            font-size: 12px;
+            font-weight: 400;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Questions Area */
+        .questions-area {
+            display: none;
+            background: rgba(102, 126, 234, 0.08);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .questions-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .question-item {
+            margin-bottom: 10px;
+        }
+
+        .question-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* Settings Toggle */
+        .settings-toggle {
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .settings-toggle:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .settings-content {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid rgba(102, 126, 234, 0.2);
+            animation: slideDown 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 400px) {
+            .container {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .glass-card {
+                padding: 12px;
+                border-radius: 14px;
+            }
+
+            .btn {
+                padding: 9px 18px;
+                font-size: 12px;
+            }
+
+            .input-field {
+                padding: 9px 12px;
+                font-size: 12px;
+            }
+
+            .header h1 {
+                font-size: 14px;
+            }
+
+            .header-icon {
+                font-size: 28px;
+            }
+
+            /* Modal responsive adjustments */
+            .modal-content {
+                padding: 16px;
+                border-radius: 16px;
+                max-height: 90vh;
+            }
+
+            .modal-header {
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+            }
+
+            .modal-title {
+                font-size: 16px;
+            }
+
+            .modal-close {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        /* Toast Notification - Material Design */
+        .toast {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #323232;
+            color: #f2f2f2;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: var(--shadow-md);
+            font-weight: 400;
+            font-size: 12px;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Material Icon Adjustments */
+        .material-icons-round {
+            font-size: inherit;
+        }
+
+        /* Badge for Stats */
+        .stat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .stat-badge .material-icons-round {
+            font-size: 16px;
+        }
+
+        /* Footer Links */
+        .footer-links {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 6px 10px;
+            border-radius: 10px;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .footer-link:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .footer-link .material-icons-round {
+            font-size: 14px;
+        }
+
+        /* Modal Overlay - Material Design */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeInOverlay 0.2s ease;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 90vw;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.95) translateY(10px);
+            opacity: 0;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10000;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar for Modal - Material Design */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(95, 99, 104, 0.4);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(95, 99, 104, 0.6);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-title .material-icons-round {
+            font-size: 28px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-close .material-icons-round {
+            color: var(--text-secondary);
+            font-size: 24px;
+        }
+
+        .modal-body {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .modal-body h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 16px 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body h3 .material-icons-round {
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+
+        .modal-body p {
+            margin-bottom: 8px;
+        }
+
+        .modal-body ul {
+            margin-right: 20px;
+            margin-bottom: 8px;
+        }
+
+        .modal-body li {
+            margin-bottom: 4px;
+        }
+
+        .modal-body strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* API Guide Button - Material Design */
+        .api-guide-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 10px 16px;
+            background: var(--surface-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 8px;
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3);
+        }
+
+        .api-guide-btn:hover {
+            background: var(--hover-bg);
+            box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3);
+        }
+
+        .api-guide-btn .material-icons-round {
+            font-size: 18px;
+        }
+
+        /* Step Cards in Modal - Material Design */
+        .step-card {
+            background: var(--hover-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-card:hover {
+            background: var(--border-color);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 500;
+            font-size: 13px;
+            margin-left: 8px;
+        }
+
+        .step-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-color);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 6px 12px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-top: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .external-link:hover {
+            background: var(--hover-bg);
+            text-decoration: none;
+        }
+
+        .external-link .material-icons-round {
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="glass-card header">
+            <div class="header-content">
+                <span class="material-icons-round header-icon">description</span>
+                <h1>المولد العراقي الذكي</h1>
+                <div class="header-badge">
+                    <span class="material-icons-round" style="font-size: 14px;">verified</span>
+                    <span>إصدار Google Docs</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN FORM -->
+        <div class="glass-card">
+            <!-- Document Type Selection -->
+            <div class="glass-card" style="padding: 12px; margin-bottom: 8px;">
+                <label class="question-label" style="margin-bottom: 8px; font-size: 13px;">نوع المستند (Document
+                    Type)</label>
+                <div style="display: flex; gap: 16px;">
+                    <label class="checkbox-wrapper" style="flex: 1;">
+                        <input type="radio" name="docType" value="letter" checked class="custom-radio">
+                        <span class="checkbox-label" style="font-size: 13px; font-weight: 500;">كتاب رسمي
+                            (Letter)</span>
+                    </label>
+                    <label class="checkbox-wrapper" style="flex: 1;">
+                        <input type="radio" name="docType" value="minutes" class="custom-radio">
+                        <span class="checkbox-label" style="font-size: 13px; font-weight: 500;">محضر اجتماع
+                            (Minutes)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Goal Input -->
+            <div class="input-group">
+                <textarea id="goal" class="input-field" placeholder=" " rows="3" oninput="resetAnalysis()"></textarea>
+                <label class="floating-label">هدف المستند / الموضوع</label>
+            </div>
+
+            <!-- Ministry Input -->
+            <div class="input-group">
+                <input type="text" id="ministry" class="input-field" placeholder=" ">
+                <label class="floating-label">الوزارة / الجهة</label>
+            </div>
+
+            <!-- Notes Input -->
+            <div class="input-group">
+                <textarea id="notes" class="input-field" placeholder=" " rows="2"></textarea>
+                <label class="floating-label">ملاحظات مهمة (اختياري)</label>
+            </div>
+
+            <!-- Checkboxes -->
+            <label class="checkbox-wrapper">
+                <span class="checkbox-label">
+                    <span class="material-icons-round" style="color: #667eea; font-size: 18px;">analytics</span>
+                    تحليل الطلب (اسألني قبل التوليد)
+                </span>
+                <div class="custom-checkbox">
+                    <input type="checkbox" id="analyzeMode" onchange="toggleAnalyzeMode()">
+                    <span class="checkmark"></span>
+                </div>
+            </label>
+
+            <label class="checkbox-wrapper">
+                <span class="checkbox-label">
+                    <span class="material-icons-round" style="color: #4facfe; font-size: 18px;">inventory_2</span>
+                    قراءة المستند الحالي
+                </span>
+                <div class="custom-checkbox">
+                    <input type="checkbox" id="useContext">
+                    <span class="checkmark"></span>
+                </div>
+            </label>
+
+            <label class="checkbox-wrapper">
+                <span class="checkbox-label">
+                    <span class="material-icons-round" style="color: #00b894; font-size: 18px;">table_chart</span>
+                    تضمين جدول (Include Table)
+                </span>
+                <div class="custom-checkbox">
+                    <input type="checkbox" id="includeTable">
+                    <span class="checkmark"></span>
+                </div>
+            </label>
+
+            <!-- Questions Area -->
+            <div id="questionsArea" class="questions-area">
+                <div class="questions-title">
+                    <span class="material-icons-round">help_outline</span>
+                    أسئلة للاستيضاح
+                </div>
+                <div id="questionsList"></div>
+            </div>
+
+            <!-- Main Button -->
+            <button id="mainBtn" class="btn btn-primary" onclick="handleAction()">
+                <span id="btnIcon" class="material-icons-round">auto_awesome</span>
+                <span id="btnText">توليد المستند</span>
+            </button>
+
+            <!-- Reset Button -->
+            <button class="btn btn-secondary" style="margin-top: 12px;" onclick="resetForm()">
+                <span class="material-icons-round">restart_alt</span>
+                إعادة تعيين
+            </button>
+
+            <!-- Loading -->
+            <div id="loading" class="loading-container">
+                <div class="loading-spinner"></div>
+                <div class="loading-text" id="loadingText">جاري المعالجة...</div>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMsg" class="error-message"></div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="glass-card">
+            <div class="settings-toggle" onclick="toggleSettings()">
+                <span class="material-icons-round">settings</span>
+                <span>إعدادات مفتاح API</span>
+                <span class="material-icons-round" id="settingsArrow"
+                    style="transition: transform 0.3s;">expand_more</span>
+            </div>
+            <div id="settingsParams" class="settings-content">
+                <div class="input-group">
+                    <input type="password" id="apiKey" class="input-field" placeholder=" ">
+                    <label class="floating-label">Gemini API Key</label>
+                </div>
+                <button class="btn btn-primary" onclick="saveKey()">
+                    <span class="material-icons-round">save</span>
+                    حفظ المفتاح
+                </button>
+
+                <!-- API Guide Button -->
+                <button class="api-guide-btn" onclick="openModal('apiGuideModal')">
+                    <span class="material-icons-round">help_outline</span>
+                    كيف أحصل على API Key؟
+                </button>
+            </div>
+
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <div class="footer-link" onclick="openModal('privacyModal')">
+                    <span class="material-icons-round">privacy_tip</span>
+                    <span>سياسة الخصوصية</span>
+                </div>
+                <div class="footer-link" onclick="openModal('termsModal')">
+                    <span class="material-icons-round">gavel</span>
+                    <span>الشروط والأحكام</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span class="material-icons-round">check_circle</span>
+        <span id="toastMessage">تم بنجاح!</span>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span class="material-icons-round">privacy_tip</span>
+                    سياسة الخصوصية
+                </div>
+                <button class="modal-close" onclick="closeModal('privacyModal')">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>
+                    <span class="material-icons-round">shield</span>
+                    البيانات التي نجمعها
+                </h3>
+                <p>
+                    نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. المولد العراقي الذكي يجمع البيانات التالية:
+                </p>
+                <ul>
+                    <li><strong>مفتاح API:</strong> يتم تخزينه بشكل آمن في إعدادات Google Docs الخاصة بك</li>
+                    <li><strong>بيانات المستند:</strong> النص الذي تدخله لتوليد المستندات</li>
+                    <li><strong>معلومات الاستخدام:</strong> لتحسين الأداء وتطوير الخدمة</li>
+                </ul>
+
+                <h3>
+                    <span class="material-icons-round">lock</span>
+                    كيف نحمي بياناتك
+                </h3>
+                <p>
+                    نستخدم تشفير SSL لنقل البيانات بشكل آمن. مفتاح API الخاص بك لا يتم مشاركته مع أي طرف ثالث أبداً.
+                </p>
+
+                <h3>
+                    <span class="material-icons-round">cloud</span>
+                    استخدام Google Gemini API
+                </h3>
+                <p>
+                    الأداة تستخدم Google Gemini API لتوليد المستندات. بياناتك تُرسل إلى Google لمعالجة الطلبات فقط. راجع
+                    <a href="https://policies.google.com/privacy" target="_blank"
+                        style="color: #667eea; font-weight: 600;">سياسة خصوصية Google</a>
+                    للمزيد من التفاصيل.
+                </p>
+
+                <h3>
+                    <span class="material-icons-round">storage</span>
+                    التخزين والاحتفاظ بالبيانات
+                </h3>
+                <p>
+                    لا نقوم بتخزين بياناتك على خوادمنا. جميع البيانات تُحفظ محلياً في Google Docs الخاص بك.
+                </p>
+
+                <h3>
+                    <span class="material-icons-round">verified_user</span>
+                    حقوقك
+                </h3>
+                <p>
+                    لديك الحق في:
+                </p>
+                <ul>
+                    <li>الوصول إلى بياناتك وتعديلها</li>
+                    <li>حذف مفتاح API في أي وقت</li>
+                    <li>إيقاف استخدام الأداة تماماً</li>
+                </ul>
+
+                <p
+                    style="margin-top: 20px; padding: 12px; background: var(--hover-bg); border-radius: 4px; font-size: 12px;">
+                    <strong>آخر تحديث:</strong> يناير 2026
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div id="termsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span class="material-icons-round">gavel</span>
+                    الشروط والأحكام
+                </div>
+                <button class="modal-close" onclick="closeModal('termsModal')">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>
+                    <span class="material-icons-round">info</span>
+                    قبول الشروط
+                </h3>
+                <p>
+                    باستخدامك للمولد العراقي الذكي، أنت توافق على الالتزام بهذه الشروط والأحكام. إذا لم توافق، يرجى عدم
+                    استخدام الأداة.
+                </p>
+
+                <h3>
+                    <span class="material-icons-round">description</span>
+                    الغرض من الأداة
+                </h3>
+                <p>
+                    المولد العراقي الذكي هو أداة مساعدة لتوليد المستندات الرسمية العراقية بشكل أسرع وأسهل. النتائج
+                    المُولدة قد تحتاج إلى مراجعة وتعديل من قبل المستخدم.
+                </p>
+
+                <h3>
+                    <span class="material-icons-round">warning</span>
+                    مسؤوليات المستخدم
+                </h3>
+                <p>
+                    أنت مسؤول عن:
+                </p>
+                <ul>
+                    <li>مراجعة جميع المستندات المُولدة قبل استخدامها</li>
+                    <li>ضمان دقة وموثوقية المعلومات المدخلة</li>
+                    <li>الامتثال للقوانين والأنظمة العراقية المعمول بها</li>
+                    <li>حماية مفتاح API الخاص بك وعدم مشاركته</li>
+                </ul>
+
+                <h3>
+                    <span class="material-icons-round">block</span>
+                    الاستخدام الممنوع
+                </h3>
+                <p>
+                    يمنع استخدام الأداة لأغراض:
+                </p>
+                <ul>
+                    <li>غير قانونية أو مخالفة للقوانين العراقية</li>
+                    <li>تزوير المستندات أو تقديم معلومات كاذبة</li>
+                    <li>انتهاك حقوق الغير أو ممتلكاتهم الفكرية</li>
+                    <li>أي أغراض ضارة أو غير أخلاقية</li>
+                </ul>
+
+                <h3>
+                    <span class="material-icons-round">gpp_maybe</span>
+                    الضمانات
+                </h3>
+                <p>
+                    الأداة تُقدم "كما هي" دون أي ضمانات، سواء صريحة أو ضمنية. نحن لا نضمن:
+                </p>
+                <ul>
+                    <li>أن الأداة ستلبي جميع متطلباتك</li>
+                    <li>أن العمل سيكون بدون انقطاعات أو أخطاء</li>
+                    <li>دقة أو جودة المستندات المُولدة</li>
+                </ul>
+
+                <h3>
+                    <span class="material-icons-round">update</span>
+                    التحديثات والتغييرات
+                </h3>
+                <p>
+                    نحتفظ بالحق في تعديل أو تحديث هذه الشروط في أي وقت. سيتم إشعارك بأي تغييرات جوهرية من خلال الأداة.
+                </p>
+
+                <h3>
+                    <span class="material-icons-round">email</span>
+                    التواصل معنا
+                </h3>
+                <p>
+                    لأي استفسارات أو شكاوى، يمكنك التواصل معنا من خلال:
+                </p>
+                <ul>
+                    <li>قسم "إعدادات مفتاح API" في الأداة</li>
+                    <li> repository الخاص بالمشروع على GitHub</li>
+                </ul>
+
+                <p
+                    style="margin-top: 20px; padding: 12px; background: var(--hover-bg); border-radius: 4px; font-size: 12px;">
+                    <strong>آخر تحديث:</strong> يناير 2026
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Guide Modal -->
+    <div id="apiGuideModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span class="material-icons-round">vpn_key</span>
+                    كيف أحصل على API Key؟
+                </div>
+                <button class="modal-close" onclick="closeModal('apiGuideModal')">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px; color: var(--text-primary); font-weight: 500;">
+                    اتبع الخطوات البسيطة التالية للحصول على مفتاح Gemini API مجاناً في دقيقة واحدة:
+                </p>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        انتقل إلى Google AI Studio
+                    </div>
+                    <div class="step-desc">
+                        افتح الرابط التالي في نافذة جديدة:
+                        <br>
+                        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="external-link">
+                            <span class="material-icons-round">open_in_new</span>
+                            https://aistudio.google.com/app/apikey
+                        </a>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">2</span>
+                        سجل الدخول بحساب Google
+                    </div>
+                    <div class="step-desc">
+                        استخدم حساب Gmail الخاص بك. إذا لم يكن لديك حساب، يمكنك إنشاء حساب مجاني في دقيقة واحدة.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        أنشئ مفتاح API جديد
+                    </div>
+                    <div class="step-desc">
+                        في صفحة Google AI Studio، ابحث عن زر <strong style="color: var(--primary-color);">"Create API
+                            Key"</strong> أو <strong style="color: var(--primary-color);">"إنشاء مفتاح API"</strong>
+                        واضغط عليه.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">4</span>
+                        انسخ المفتاح
+                    </div>
+                    <div class="step-desc">
+                        سيظهر لك المفتاح بهذا الشكل:
+                        <br>
+                        <code
+                            style="display: block; background: #f8f9fa; padding: 10px; border-radius: 4px; margin: 10px 0; font-family: monospace; font-size: 13px; direction: ltr; text-align: left; border: 1px solid var(--border-color); color: var(--text-primary);">
+                            AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                        </code>
+                        <strong>اضغط على أيقونة النسخ</strong> بجانب المفتاح.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">5</span>
+                        أدخل المفتاح في الأداة
+                    </div>
+                    <div class="step-desc">
+                        ارجع إلى هذه الأداة، الصق المفتاح في حقل <strong>"Gemini API Key"</strong> ثم اضغط <strong
+                            style="color: var(--primary-color);">"حفظ المفتاح"</strong>.
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top: 20px; padding: 16px; background: var(--hover-bg); border-radius: 4px; border: 1px solid var(--border-color);">
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                        <span class="material-icons-round"
+                            style="color: var(--primary-color); font-size: 20px;">info</span>
+                        <strong style="color: var(--text-primary); font-size: 13px;">معلومات مهمة</strong>
+                    </div>
+                    <ul style="margin: 0; padding: 0; list-style: none;">
+                        <li
+                            style="font-size: 12px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 6px;">
+                            <span style="color: var(--primary-color);">•</span>
+                            <span>المفتاح <strong>مجاني تماماً</strong> للاستخدام الشخصي والتجاري الصغير</span>
+                        </li>
+                        <li
+                            style="font-size: 12px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 6px;">
+                            <span style="color: var(--primary-color);">•</span>
+                            <span>Google تقدم <strong>كريمات مجانية كافية</strong> للاستخدام العادي (15
+                                طلب/دقيقة)</span>
+                        </li>
+                        <li
+                            style="font-size: 12px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 6px;">
+                            <span style="color: var(--primary-color);">•</span>
+                            <span><strong>لا نشارك مفتاحك</strong> مع أي طرف ثالث - يُحفظ محلياً فقط</span>
+                        </li>
+                        <li
+                            style="font-size: 12px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 6px;">
+                            <span style="color: var(--primary-color);">•</span>
+                            <span>يمكنك <strong>حذف المفتاح</strong> في أي وقت من إعدادات Google Cloud</span>
+                        </li>
+                        <li
+                            style="font-size: 12px; margin-bottom: 0; display: flex; align-items: flex-start; gap: 6px;">
+                            <span style="color: var(--primary-color);">•</span>
+                            <span>الأداة تعمل <strong>بدون اتصال بالإنترنت</strong> بعد التوليد الأول</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div
+                    style="margin-top: 24px; text-align: center; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
+                        أو استخدم الزر أدناه للذهاب مباشرة إلى Google AI Studio
+                    </p>
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="btn btn-primary"
+                        style="display: inline-flex; text-decoration: none; width: auto; padding: 10px 24px;">
+                        <span class="material-icons-round">open_in_new</span>
+                        الذهاب إلى Google AI Studio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isAnalysisComplete = false;
+
+        // Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const container = document.querySelector('.container');
+
+            modal.classList.add('show');
+
+            // Hide scrollbar from main container
+            if (container) {
+                container.style.overflow = 'hidden';
+            }
+
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const container = document.querySelector('.container');
+
+            modal.classList.remove('show');
+
+            // Restore scrollbar to main container
+            if (container) {
+                container.style.overflow = 'auto';
+            }
+
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    closeModal(this.id);
+                }
+            });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.show').forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+
+        // Ensure proper z-index layering
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.right = '0';
+            modal.style.bottom = '0';
+        });
+
+        window.onload = function () {
+            // Initialization if needed
+        };
+
+        function toggleSettings() {
+            const el = document.getElementById('settingsParams');
+            const arrow = document.getElementById('settingsArrow');
+            const isHidden = el.style.display === 'none' || el.style.display === '';
+
+            el.style.display = isHidden ? 'block' : 'none';
+            arrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function saveKey() {
+            const key = document.getElementById('apiKey').value;
+            if (!key) return showToast('يرجى إدخال المفتاح', 'error');
+            google.script.run.withSuccessHandler(() => {
+                showToast('تم حفظ المفتاح بنجاح', 'success');
+            }).saveApiKey(key);
+        }
+
+        function toggleAnalyzeMode() {
+            const isAnalyze = document.getElementById('analyzeMode').checked;
+            updateBtnState(isAnalyze);
+            if (!isAnalyze) {
+                document.getElementById('questionsArea').style.display = 'none';
+                isAnalysisComplete = false;
+            }
+        }
+
+        function resetAnalysis() {
+            if (isAnalysisComplete) {
+                isAnalysisComplete = false;
+                document.getElementById('questionsArea').style.display = 'none';
+                updateBtnState(document.getElementById('analyzeMode').checked);
+            }
+        }
+
+        function updateBtnState(isAnalyzeMode) {
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+
+            if (isAnalyzeMode && !isAnalysisComplete) {
+                btnText.innerText = "تحليل الطلب";
+                btnIcon.innerText = "analytics";
+            } else {
+                btnText.innerText = "توليد المستند";
+                btnIcon.innerText = "auto_awesome";
+            }
+        }
+
+        function handleAction() {
+            const isAnalyze = document.getElementById('analyzeMode').checked;
+
+            if (isAnalyze && !isAnalysisComplete) {
+                runAnalysis();
+            } else {
+                submitRequest();
+            }
+        }
+
+        function runAnalysis() {
+            const goal = document.getElementById('goal').value;
+            const useContext = document.getElementById('useContext').checked;
+
+            if (!goal) return showToast('يرجى كتابة هدف المستند', 'error');
+
+            setLoading(true, "جاري تحليل الطلب...");
+
+            google.script.run
+                .withSuccessHandler((questions) => {
+                    setLoading(false);
+                    displayQuestions(questions);
+                    isAnalysisComplete = true;
+                    updateBtnState(true);
+                    showToast('تم التحليل بنجاح', 'success');
+                })
+                .withFailureHandler((err) => {
+                    setLoading(false);
+                    showError(err.message);
+                })
+                .analyzeRequest(goal, useContext);
+        }
+
+        function displayQuestions(questions) {
+            const container = document.getElementById('questionsList');
+            container.innerHTML = '';
+
+            if (!questions || questions.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-secondary); font-size: 13px;">الطلب واضح ولا يحتاج أسئلة إضافية.</p>';
+            } else {
+                questions.forEach((q, idx) => {
+                    const div = document.createElement('div');
+                    div.className = 'question-item';
+                    div.innerHTML = `
+                        <label class="question-label">${q}</label>
+                        <input type="text" class="input-field answer-input" placeholder="الجواب...">
+                    `;
+                    container.appendChild(div);
+                });
+            }
+            document.getElementById('questionsArea').style.display = 'block';
+        }
+
+        function submitRequest() {
+            const goal = document.getElementById('goal').value;
+            const useContext = document.getElementById('useContext').checked;
+            const includeTable = document.getElementById('includeTable').checked;
+            const ministry = document.getElementById('ministry').value;
+            const notes = document.getElementById('notes').value;
+            // Get Selected Doc Type
+            let docType = 'letter';
+            const docTypeEl = document.querySelector('input[name="docType"]:checked');
+            if (docTypeEl) {
+                docType = docTypeEl.value;
+            }
+
+            if (!goal) {
+                showToast("يرجى كتابة الغرض من الكتاب أولاً", 'error');
+                return;
+            }
+
+            setLoading(true, "جاري التوليد...");
+
+            // Collect answers if any
+            let answers = "";
+            document.querySelectorAll('.question-item').forEach(item => {
+                const label = item.querySelector('.question-label').innerText;
+                const val = item.querySelector('input').value;
+                if (val) answers += `${label}: ${val}\n`;
+            });
+
+            google.script.run
+                .withSuccessHandler(function (response) {
+                    setLoading(false);
+                    showToast(response, 'success');
+                    // Clear questions after success
+                    document.getElementById('questionsArea').style.display = 'none';
+                    document.getElementById('questionsList').innerHTML = '';
+                })
+                .withFailureHandler(function (error) {
+                    setLoading(false);
+                    showError(error.message);
+                })
+                .generateDocument(goal, answers, ministry, notes, useContext, docType, includeTable);
+        }
+
+        function resetForm() {
+            document.getElementById('goal').value = '';
+            document.getElementById('ministry').value = '';
+            document.getElementById('notes').value = '';
+            document.getElementById('analyzeMode').checked = false;
+            document.getElementById('useContext').checked = false;
+
+            document.getElementById('questionsList').innerHTML = '';
+            document.getElementById('questionsArea').style.display = 'none';
+            isAnalysisComplete = false;
+            updateBtnState(false);
+
+            showToast('تم إعادة تعيين النموذج', 'success');
+        }
+
+        function setLoading(isLoading, msg) {
+            const btn = document.getElementById('mainBtn');
+            const loader = document.getElementById('loading');
+            const err = document.getElementById('errorMsg');
+            const loadingText = document.getElementById('loadingText');
+
+            if (isLoading) {
+                btn.disabled = true;
+                loadingText.innerText = msg;
+                loader.style.display = 'block';
+                err.style.display = 'none';
+            } else {
+                btn.disabled = false;
+                loader.style.display = 'none';
+            }
+        }
+
+        function showError(msg) {
+            const err = document.getElementById('errorMsg');
+            err.innerText = "خطأ: " + msg;
+            err.style.display = 'block';
+            err.style.animation = 'none';
+            err.offsetHeight;
+            err.style.animation = 'slideDown 0.3s ease';
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            const icon = toast.querySelector('.material-icons-round');
+
+            toastMsg.innerText = message;
+
+            if (type === 'error') {
+                toast.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)';
+                icon.innerText = 'error';
+            } else {
+                toast.style.background = 'var(--success-gradient)';
+                icon.innerText = 'check_circle';
+            }
+
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
