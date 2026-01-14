@@ -5,6 +5,8 @@
     <base target="_top">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- Google Site Verification Placeholder -->
+    <meta name="google-site-verification" content="QciKKVQ7-LQYKf-pwf9UtGBXmqyd4RvoZHj41XBXLck" />
     <style>
         * {
             margin: 0;
@@ -13,7 +15,7 @@
         }
 
         :root {
-            /* Google Docs Color Palette */
+            /* IraqDocs Color Palette */
             --md-sys-color-primary: #1967d2;
             --md-sys-color-on-primary: #ffffff;
             --md-sys-color-primary-container: #d3e3fd;
@@ -99,7 +101,7 @@
             box-shadow: var(--shadow-sm);
         }
 
-        /* Header - Google Docs Style */
+        /* Header - IraqDocs Style */
         .header {
             text-align: center;
             background: var(--primary-color);
@@ -140,7 +142,7 @@
             opacity: 0.9;
         }
 
-        /* Material Design Input Fields - Google Docs Style */
+        /* Material Design Input Fields - IraqDocs Style */
         .input-group {
             position: relative;
             margin-bottom: 12px;
@@ -199,7 +201,7 @@
             min-height: 60px;
         }
 
-        /* Material Design Checkbox - Google Docs Style */
+        /* Material Design Checkbox - IraqDocs Style */
         .checkbox-wrapper {
             display: flex;
             align-items: center;
@@ -879,10 +881,10 @@
         <div class="glass-card header">
             <div class="header-content">
                 <span class="material-icons-round header-icon">description</span>
-                <h1>المولد العراقي الذكي</h1>
+                <h1>IraqDocs</h1>
                 <div class="header-badge">
                     <span class="material-icons-round" style="font-size: 14px;">verified</span>
-                    <span>إصدار Google Docs</span>
+                    <span>المولد العراقي الذكي</span>
                 </div>
             </div>
         </div>
@@ -1017,11 +1019,11 @@
 
             <!-- Footer Links -->
             <div class="footer-links">
-                <div class="footer-link" onclick="openModal('privacyModal')">
+                <div class="footer-link" onclick="openPrivacyPolicy()">
                     <span class="material-icons-round">privacy_tip</span>
                     <span>سياسة الخصوصية</span>
                 </div>
-                <div class="footer-link" onclick="openModal('termsModal')">
+                <div class="footer-link" onclick="openTermsOfUse()">
                     <span class="material-icons-round">gavel</span>
                     <span>الشروط والأحكام</span>
                 </div>
@@ -1035,179 +1037,7 @@
         <span id="toastMessage">تم بنجاح!</span>
     </div>
 
-    <!-- Privacy Policy Modal -->
-    <div id="privacyModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <span class="material-icons-round">privacy_tip</span>
-                    سياسة الخصوصية
-                </div>
-                <button class="modal-close" onclick="closeModal('privacyModal')">
-                    <span class="material-icons-round">close</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h3>
-                    <span class="material-icons-round">shield</span>
-                    البيانات التي نجمعها
-                </h3>
-                <p>
-                    نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية. المولد العراقي الذكي يجمع البيانات التالية:
-                </p>
-                <ul>
-                    <li><strong>مفتاح API:</strong> يتم تخزينه بشكل آمن في إعدادات Google Docs الخاصة بك</li>
-                    <li><strong>بيانات المستند:</strong> النص الذي تدخله لتوليد المستندات</li>
-                    <li><strong>معلومات الاستخدام:</strong> لتحسين الأداء وتطوير الخدمة</li>
-                </ul>
 
-                <h3>
-                    <span class="material-icons-round">lock</span>
-                    كيف نحمي بياناتك
-                </h3>
-                <p>
-                    نستخدم تشفير SSL لنقل البيانات بشكل آمن. مفتاح API الخاص بك لا يتم مشاركته مع أي طرف ثالث أبداً.
-                </p>
-
-                <h3>
-                    <span class="material-icons-round">cloud</span>
-                    استخدام Google Gemini API
-                </h3>
-                <p>
-                    الأداة تستخدم Google Gemini API لتوليد المستندات. بياناتك تُرسل إلى Google لمعالجة الطلبات فقط. راجع
-                    <a href="https://policies.google.com/privacy" target="_blank"
-                        style="color: #667eea; font-weight: 600;">سياسة خصوصية Google</a>
-                    للمزيد من التفاصيل.
-                </p>
-
-                <h3>
-                    <span class="material-icons-round">storage</span>
-                    التخزين والاحتفاظ بالبيانات
-                </h3>
-                <p>
-                    لا نقوم بتخزين بياناتك على خوادمنا. جميع البيانات تُحفظ محلياً في Google Docs الخاص بك.
-                </p>
-
-                <h3>
-                    <span class="material-icons-round">verified_user</span>
-                    حقوقك
-                </h3>
-                <p>
-                    لديك الحق في:
-                </p>
-                <ul>
-                    <li>الوصول إلى بياناتك وتعديلها</li>
-                    <li>حذف مفتاح API في أي وقت</li>
-                    <li>إيقاف استخدام الأداة تماماً</li>
-                </ul>
-
-                <p
-                    style="margin-top: 20px; padding: 12px; background: var(--hover-bg); border-radius: 4px; font-size: 12px;">
-                    <strong>آخر تحديث:</strong> يناير 2026
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Terms of Service Modal -->
-    <div id="termsModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">
-                    <span class="material-icons-round">gavel</span>
-                    الشروط والأحكام
-                </div>
-                <button class="modal-close" onclick="closeModal('termsModal')">
-                    <span class="material-icons-round">close</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h3>
-                    <span class="material-icons-round">info</span>
-                    قبول الشروط
-                </h3>
-                <p>
-                    باستخدامك للمولد العراقي الذكي، أنت توافق على الالتزام بهذه الشروط والأحكام. إذا لم توافق، يرجى عدم
-                    استخدام الأداة.
-                </p>
-
-                <h3>
-                    <span class="material-icons-round">description</span>
-                    الغرض من الأداة
-                </h3>
-                <p>
-                    المولد العراقي الذكي هو أداة مساعدة لتوليد المستندات الرسمية العراقية بشكل أسرع وأسهل. النتائج
-                    المُولدة قد تحتاج إلى مراجعة وتعديل من قبل المستخدم.
-                </p>
-
-                <h3>
-                    <span class="material-icons-round">warning</span>
-                    مسؤوليات المستخدم
-                </h3>
-                <p>
-                    أنت مسؤول عن:
-                </p>
-                <ul>
-                    <li>مراجعة جميع المستندات المُولدة قبل استخدامها</li>
-                    <li>ضمان دقة وموثوقية المعلومات المدخلة</li>
-                    <li>الامتثال للقوانين والأنظمة العراقية المعمول بها</li>
-                    <li>حماية مفتاح API الخاص بك وعدم مشاركته</li>
-                </ul>
-
-                <h3>
-                    <span class="material-icons-round">block</span>
-                    الاستخدام الممنوع
-                </h3>
-                <p>
-                    يمنع استخدام الأداة لأغراض:
-                </p>
-                <ul>
-                    <li>غير قانونية أو مخالفة للقوانين العراقية</li>
-                    <li>تزوير المستندات أو تقديم معلومات كاذبة</li>
-                    <li>انتهاك حقوق الغير أو ممتلكاتهم الفكرية</li>
-                    <li>أي أغراض ضارة أو غير أخلاقية</li>
-                </ul>
-
-                <h3>
-                    <span class="material-icons-round">gpp_maybe</span>
-                    الضمانات
-                </h3>
-                <p>
-                    الأداة تُقدم "كما هي" دون أي ضمانات، سواء صريحة أو ضمنية. نحن لا نضمن:
-                </p>
-                <ul>
-                    <li>أن الأداة ستلبي جميع متطلباتك</li>
-                    <li>أن العمل سيكون بدون انقطاعات أو أخطاء</li>
-                    <li>دقة أو جودة المستندات المُولدة</li>
-                </ul>
-
-                <h3>
-                    <span class="material-icons-round">update</span>
-                    التحديثات والتغييرات
-                </h3>
-                <p>
-                    نحتفظ بالحق في تعديل أو تحديث هذه الشروط في أي وقت. سيتم إشعارك بأي تغييرات جوهرية من خلال الأداة.
-                </p>
-
-                <h3>
-                    <span class="material-icons-round">email</span>
-                    التواصل معنا
-                </h3>
-                <p>
-                    لأي استفسارات أو شكاوى، يمكنك التواصل معنا من خلال:
-                </p>
-                <ul>
-                    <li>قسم "إعدادات مفتاح API" في الأداة</li>
-                    <li> repository الخاص بالمشروع على GitHub</li>
-                </ul>
-
-                <p
-                    style="margin-top: 20px; padding: 12px; background: var(--hover-bg); border-radius: 4px; font-size: 12px;">
-                    <strong>آخر تحديث:</strong> يناير 2026
-                </p>
-            </div>
-        </div>
-    </div>
 
     <!-- API Guide Modal -->
     <div id="apiGuideModal" class="modal-overlay">
@@ -1343,6 +1173,53 @@
     </div>
 
     <script>
+        // --- Mock Google Script Run for Local Testing ---
+        if (typeof google === 'undefined') {
+            console.warn("Google Apps Script environment not found. Using Mock.");
+            window.google = {
+                script: {
+                    run: {
+                        withSuccessHandler: function (func) {
+                            this._success = func;
+                            return this;
+                        },
+                        withFailureHandler: function (func) {
+                            this._failure = func;
+                            return this;
+                        },
+                        showPrivacyPolicy: function () {
+                            console.log('Mock: showPrivacyPolicy() called');
+                            // Try to open the file locally for preview
+                            window.open('privacy-policy.html', '_blank', 'width=600,height=600');
+                        },
+                        showTermsOfUse: function () {
+                            console.log('Mock: showTermsOfUse() called');
+                            // Try to open the file locally for preview
+                            window.open('terms-of-use.html', '_blank', 'width=600,height=600');
+                        },
+                        saveApiKey: function (key) {
+                            console.log('Mock: saveApiKey', key);
+                            setTimeout(() => {
+                                if (this._success) this._success();
+                            }, 500);
+                        },
+                        analyzeRequest: function (goal, context) {
+                            console.log('Mock: analyzeRequest', goal);
+                            setTimeout(() => {
+                                if (this._success) this._success(["سؤال توضيحي 1 (تجريبي)", "سؤال توضيحي 2 (تجريبي)"]);
+                            }, 1000);
+                        },
+                        generateDocument: function (goal, answers, ministry, notes, context, type, table) {
+                            console.log('Mock: generateDocument', arguments);
+                            setTimeout(() => {
+                                if (this._success) this._success("تم إنشاء المستند (محاكاة)");
+                            }, 1500);
+                        }
+                    }
+                }
+            };
+        }
+
         let isAnalysisComplete = false;
 
         // Modal Functions
@@ -1414,6 +1291,14 @@
 
             el.style.display = isHidden ? 'block' : 'none';
             arrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function openPrivacyPolicy() {
+            google.script.run.showPrivacyPolicy();
+        }
+
+        function openTermsOfUse() {
+            google.script.run.showTermsOfUse();
         }
 
         function saveKey() {
@@ -1613,6 +1498,8 @@
             }, 3000);
         }
     </script>
+
+
 </body>
 
 </html>

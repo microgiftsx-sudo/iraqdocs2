@@ -17,6 +17,20 @@ function showSidebar() {
     DocumentApp.getUi().showSidebar(html);
 }
 
+function showPrivacyPolicy() {
+    const html = HtmlService.createHtmlOutputFromFile('privacy-policy')
+        .setWidth(600)
+        .setHeight(600);
+    DocumentApp.getUi().showModalDialog(html, 'سياسة الخصوصية');
+}
+
+function showTermsOfUse() {
+    const html = HtmlService.createHtmlOutputFromFile('terms-of-use')
+        .setWidth(600)
+        .setHeight(600);
+    DocumentApp.getUi().showModalDialog(html, 'شروط الاستخدام');
+}
+
 // --- API Key Management ---
 function saveApiKey(key) {
     PropertiesService.getUserProperties().setProperty('GEMINI_API_KEY', key);
